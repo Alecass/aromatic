@@ -1,0 +1,29 @@
+[
+	{
+		"produttore": "varvaglione",
+		"cantina": "varvaglione",
+		"anno": "2014",
+		"gradazione": "15%",
+		"vitigno": "primitivo di mandura",
+		"vino": "collezione privata",
+		"regione": "puglia"
+	},
+	{
+		"produttore": "donnafugata",
+		"cantina": "donnafugata",
+		"anno": "2016",
+		"gradazione": "14%",
+		"vitigno": "moscato di alessandria",
+		"vino": "ben rye",
+		"regione": "sicilia"
+	},
+	{
+		"produttore": "varvaglione",
+		"cantina": "varvaglione",
+		"anno": "2018",
+		"gradazione": "13%",
+		"vitigno": "primitivo di manduria",
+		"vino": "idea",
+		"regione": "puglia"
+	}
+]
