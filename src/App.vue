@@ -21,7 +21,7 @@ export default {
   margin: 0;
 }
 #app {
-  background-color: gray;
+  background-color: rgb(40, 40, 40);
   width: 960px;
   height: 540px;
 }
