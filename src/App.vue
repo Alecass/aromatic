@@ -1,28 +1,28 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <Buttons />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Buttons from "./components/buttons/Buttons";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    Buttons
   }
-}
+};
 </script>
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background-color: gray;
+  width: 960px;
+  height: 540px;
 }
 </style>
