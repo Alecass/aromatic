@@ -1,17 +1,25 @@
 [
   {
+    "id": 0,
     "label": "Vino",
     "image": "static/svg/buttons/vino.svg"
   },
   {
+    "id": 1,
     "label": "Terroir",
-    "image": "static/svg/buttons/terroir.svg"
+    "image": "static/svg/buttons/terroir.svg",
+    "secondaryButtons": [
+      "static/svg/buttons/location.svg",
+      "static/svg/buttons/fragolina.svg"
+    ]
   },
   {
+    "id": 2,
     "label": "A tavola",
     "image": "static/svg/buttons/tavola.svg"
   },
   {
+    "id": 3,
     "label": "Vinificazione",
     "image": "static/svg/buttons/vinificazione.svg"
   }
