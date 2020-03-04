@@ -1,0 +1,18 @@
+[
+  {
+    "label": "Vino",
+    "image": "static/svg/buttons/vino.svg"
+  },
+  {
+    "label": "Terroir",
+    "image": "static/svg/buttons/terroir.svg"
+  },
+  {
+    "label": "A tavola",
+    "image": "static/svg/buttons/tavola.svg"
+  },
+  {
+    "label": "Vinificazione",
+    "image": "static/svg/buttons/vinificazione.svg"
+  }
+]
