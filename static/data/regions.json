@@ -2,13 +2,13 @@
 	"puglia": {
 		"it": "puglia",
 		"en": "apulia",
-		"coords": [-320, -300],
-		"scale": 1.1
+		"coords": [-300, -290],
+		"scale": 1.05
 	},
 	"sicilia": {
 		"it": "sicilia",
 		"en": "sicily",
-		"coords": [-180, -470],
-		"scale": 1.1
+		"coords": [-200, -520],
+		"scale": 1.2
 	}
 }
