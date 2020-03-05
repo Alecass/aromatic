@@ -32,9 +32,9 @@ export default {
 }
 #header,
 #default {
-	margin-left: 250px;
+	margin-left: 260px;
 	margin-right: 0px;
-	width: 600px;
+	width: 550px;
 }
 #header {
 	position: absolute;

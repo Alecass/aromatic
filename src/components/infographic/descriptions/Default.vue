@@ -1,6 +1,6 @@
 <template>
 	<div id="default">
-		<div v-for="(title, index) in titles" :key="index" id="item">
+		<div v-for="(title, index) in titles" :key="index" :id="title">
 			<h5 class="uppercase title">{{ title }}</h5>
 			<h3 class="capitalize value">
 				{{ values[bottle][title] }}
@@ -42,10 +42,19 @@ export default {
 #default {
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-start;
+	justify-content: space-between;
 }
-#item {
-	margin-right: 60px;
+#cantina {
+	flex-basis: 30%;
+}
+#anno {
+	flex-basis: 20%;
+}
+#gradazione {
+	flex-basis: 30%;
+}
+#vitigno {
+	flex-basis: 20%;
 }
 .title {
 	font-family: 'Poppins Light';
