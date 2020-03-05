@@ -1,11 +1,11 @@
 <template>
 	<div id="map">
 		<WrapperSVG
-			id="circles"
-			title="circles"
-			:width="String(sizeCircle)"
-			:height="String(sizeCircle)"
-			><Circles
+			id="mare"
+			title="mare"
+			:width="String(sizeMare)"
+			:height="String(sizeMare)"
+			><Mare
 		/></WrapperSVG>
 		<WrapperSVG
 			id="italia"
@@ -13,6 +13,13 @@
 			:width="String(sizeItalia)"
 			:height="String(sizeItalia)"
 			><Italia
+		/></WrapperSVG>
+		<WrapperSVG
+			id="circles"
+			title="circles"
+			:width="String(sizeCircle)"
+			:height="String(sizeCircle)"
+			><Circles
 		/></WrapperSVG>
 	</div>
 </template>
@@ -22,11 +29,14 @@ import WrapperSVG from '../../utils/WrapperSVG'
 
 import Circles from '../../../static/svg/header/Circles'
 import Italia from '../../../static/svg/header/Italia'
+import Mare from '../../../static/svg/header/Mare'
 
 import Regions from '../../../static/data/regions.json'
 import defaultViewValues from '../../../static/data/defaultViewValues.json'
 
 import { manager } from '../../assets/state'
+
+import gsap from 'gsap'
 
 export default {
 	name: 'Map',
@@ -34,12 +44,14 @@ export default {
 		WrapperSVG,
 		Circles,
 		Italia,
+		Mare,
 	},
 	data() {
 		return {
 			bottle: 0,
-			sizeCircle: 500,
-			sizeItalia: 210,
+			sizeCircle: 205 / 2,
+			sizeItalia: 205,
+			sizeMare: 205,
 			regions: Regions,
 			values: defaultViewValues,
 		}
@@ -53,8 +65,8 @@ export default {
 			} else return
 
 			this.showRegion(
-				this.regions[this.values[this.bottle].regione.it],
-				'#808080',
+				this.regions[this.values[this.bottle].regione].it,
+				'#808080'
 			)
 
 			console.log('MAP', manager.getBottle())
@@ -62,18 +74,31 @@ export default {
 	},
 	methods: {
 		showRegion(regionName, color) {
-			// const regionNameEN = this.regions[regionName].en
+			const regionNameEN = this.regions[regionName].en
 
-			// const regionNameENCap =
-			// 	String(regionNameEN)
-			// 		.charAt(0)
-			// 		.toUpperCase() + regionNameEN.slice(1)
+			const regionNameENCap =
+				String(regionNameEN)
+					.charAt(0)
+					.toUpperCase() + regionNameEN.slice(1)
 
-			// let italia = document.querySelector('#italia g')
-			// italia.style = `transform: translate(${this.regions[regionName].coords[0]}px, ${this.regions[regionName].coords[1]}px) scale(${this.regions[regionName].scale});`
+			let italia = document.querySelector('#italia g')
+			let circles = document.querySelector('#circles g')
 
-			// let region = document.querySelector(`#${regionNameENCap}`)
-			// region.style = `fill: ${color}`
+			gsap.to(italia, {
+				x: this.regions[regionName].coords[0],
+				y: this.regions[regionName].coords[1],
+				scale: this.regions[regionName].scale,
+				duration: 1,
+				ease: 'circ.inOut',
+			})
+			gsap.to(circles, {
+				rotate: '45deg',
+				duration: 1,
+				ease: 'circ.inOut',
+			})
+
+			let region = document.querySelector(`#${regionNameENCap}`)
+			region.style = `fill: ${color}`
 
 			console.log('MAP/REGION', regionName)
 		},
@@ -88,15 +113,20 @@ export default {
 	margin-left: 50px;
 }
 #circles,
-#italia {
+#italia,
+#mare {
 	position: absolute;
 }
-#italia {
-	border: grey 1px solid;
+#italia,
+#mare {
 	border-radius: 50%;
 	padding: 10px;
 }
+#italia {
+	border: grey 1px solid;
+}
 #circles {
-	z-index: 99;
+	transform: translateY(-1px);
+	transform-origin: center center;
 }
 </style>
