@@ -37,13 +37,17 @@ export default {
 </script>
 
 <style scoped>
-.produttore {
-	font-family: 'Playfair Display Bold';
-	font-style: italic;
-	color: #c2c2c2;
-}
 .vino {
 	font-family: 'Playfair Display Italic';
 	color: #b14d74;
+	font-size: 3rem;
+	line-height: 2.5rem;
+}
+.produttore {
+	font-family: 'Playfair Display Bold';
+	font-weight: 100;
+	font-style: italic;
+	color: #c2c2c2;
+	font-size: 1.5rem;
 }
 </style>

@@ -13,3 +13,16 @@ export default {
 	name: 'Circles',
 }
 </script>
+
+<style scoped>
+.cls-1 {
+	opacity: 0.6;
+}
+.cls-2 {
+	fill: none;
+	stroke: #fff;
+	stroke-miterlimit: 10;
+	stroke-width: 1.69px;
+	stroke-dasharray: 269.65 449.42;
+}
+</style>
