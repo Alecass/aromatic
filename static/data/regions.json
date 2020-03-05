@@ -1,0 +1,14 @@
+{
+	"puglia": {
+		"it": "puglia",
+		"en": "apulia",
+		"coords": [-320, -300],
+		"scale": 1.1
+	},
+	"sicilia": {
+		"it": "sicilia",
+		"en": "sicily",
+		"coords": [-180, -470],
+		"scale": 1.1
+	}
+}
