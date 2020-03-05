@@ -2,24 +2,10 @@
 	<div id="default">
 		<div v-for="(title, index) in titles" :key="index">
 			<h5 class="uppercase title">{{ title }}</h5>
-		</div>
-		<!-- <div v-for="(value, index) in titles.length" :key="index">
 			<h3 class="capitalize value">
-			{{ values[].cantina }}
-		</h3> -->
-
-		<h3 class="capitalize value">
-			{{ values[currentBottle].cantina }}
-		</h3>
-		<h3 class="capitalize value">
-			{{ values[currentBottle].anno }}
-		</h3>
-		<h3 class="capitalize value">
-			{{ values[currentBottle].gradazione }}
-		</h3>
-		<h3 class="capitalize value">
-			{{ values[currentBottle].vitigno }}
-		</h3>
+				{{ values[bottle][title] }}
+			</h3>
+		</div>
 	</div>
 </template>
 
@@ -27,16 +13,27 @@
 import defaultViewValues from '../../../../static/data/defaultViewValues.json'
 import defaultViewTitles from '../../../../static/data/defaultViewTitles.json'
 
-import state from '../../../assets/state'
+import { manager } from '../../../assets/state'
 
 export default {
 	name: 'Default',
 	data() {
 		return {
-			currentBottle: state.getBottle(),
+			bottle: 0,
 			titles: defaultViewTitles,
 			values: defaultViewValues,
 		}
+	},
+	mounted() {
+		window.addEventListener('keypress', e => {
+			let key = Number(e.key)
+
+			if (key >= 0 && key <= 6) {
+				this.bottle = manager.getBottle()
+			} else return
+
+			console.log('DEFAULT', manager.getBottle())
+		})
 	},
 }
 </script>
@@ -44,7 +41,7 @@ export default {
 <style>
 #default {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: space-between;
 }
 .title {
