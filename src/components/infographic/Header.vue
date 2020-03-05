@@ -1,10 +1,10 @@
 <template>
 	<div id="header">
 		<h1 class="vino capitalize">
-			{{ values[bottleProp].vino }}
+			{{ values[bottle].vino }}
 		</h1>
 		<h3 class="produttore capitalize">
-			{{ values[bottleProp].produttore }}
+			{{ values[bottle].produttore }}
 		</h3>
 	</div>
 </template>
@@ -12,16 +12,26 @@
 <script>
 import defaultViewValues from '../../../static/data/defaultViewValues.json'
 
+import { manager } from '../../assets/state'
+
 export default {
 	name: 'Header',
-	props: {
-		bottleProp: Number,
-	},
 	data() {
 		return {
-			// bottleData: this.bottleProp,
+			bottle: 0,
 			values: defaultViewValues,
 		}
+	},
+	mounted() {
+		window.addEventListener('keypress', e => {
+			let key = Number(e.key)
+
+			if (key >= 0 && key <= 6) {
+				this.bottle = manager.getBottle()
+			} else return
+
+			console.log('HEADER', manager.getBottle())
+		})
 	},
 }
 </script>
