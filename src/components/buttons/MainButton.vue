@@ -9,7 +9,10 @@
       <img class="secondary-button-img" :src="button" />
     </div>
     <!-- button primari -->
-    <div @click="mainButtonClick(id, secondaryButtons)" class="circle-button">
+    <div
+      @click="e => mainButtonClick(e, id, secondaryButtons)"
+      class="circle-button"
+    >
       <img class="circle-button-img" :src="image" :alt="label" />
     </div>
     <div class="label">{{ label }}</div>
@@ -25,13 +28,32 @@ export default {
     image: String,
     secondaryButtons: Array
   },
+  data() {
+    return {
+      opened: false
+    };
+  },
   methods: {
-    mainButtonClick(id, secondaryButtons) {
+    mainButtonClick(e, id, secondaryButtons) {
       //se non ha bottonoi secondari al click
       if (secondaryButtons === null) {
         console.log("no secondary buttons on button: ", id);
         //se ha bottoni secondari al click
       } else {
+        const secondaryButtons = document.querySelectorAll(".secondary-button");
+        if (this.opened === false) {
+          //mostra i bottoni secondari
+          secondaryButtons.forEach(button => {
+            button.classList.add("secondary-button-opened");
+          });
+          this.opened = true;
+        } else {
+          //rimuove i bottoni secondari
+          secondaryButtons.forEach(button => {
+            button.classList.remove("secondary-button-opened");
+          });
+          this.opened = false;
+        }
         console.log("has secondary button: ", id);
       }
     }
@@ -71,11 +93,12 @@ export default {
   display: flex;
   margin: 0 auto;
   border-radius: 100%;
-  width: 25px;
+  width: 0px;
   height: 0px;
   background-color: rgba(255, 255, 255, 0.13);
   margin-bottom: 0px;
   border: solid white 0px;
+  transition: all ease-in-out 0.2s;
 }
 
 .secondary-button-img {
@@ -83,6 +106,12 @@ export default {
   align-self: center;
   width: 65%;
   height: 65%;
+}
+.secondary-button-opened {
+  width: 25px;
+  height: 25px;
+  margin-bottom: 10px;
+  transform: scale(1.2);
 }
 
 .circle-button:hover {
