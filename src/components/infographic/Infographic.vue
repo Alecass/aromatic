@@ -1,6 +1,6 @@
 <template>
 	<div id="infographic">
-		<!-- <Map /> -->
+		<Map />
 		<Header id="header" />
 		<Default />
 	</div>
