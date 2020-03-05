@@ -1,66 +1,65 @@
 <template>
-  <div id="app">
-    <Infographic />
-    <Buttons />
-  </div>
+	<div id="app">
+		<Infographic />
+		<Buttons />
+	</div>
 </template>
 
 <script>
-import Infographic from "./components/infographic/Infographic";
-import Buttons from "./components/buttons/Buttons";
+import Infographic from './components/infographic/Infographic'
+import Buttons from './components/buttons/Buttons'
 
-import { state } from "./assets/state";
+import { state } from './assets/state'
 
 export default {
-  name: "App",
-  components: {
-    Infographic,
-    Buttons
-  },
-  created() {
-    state.setBottle();
-  }
-};
+	name: 'App',
+	components: {
+		Infographic,
+		Buttons,
+	},
+	created() {
+		state.setBottle()
+	},
+}
 </script>
 
 <style>
 #app {
-  background-color: rgb(40, 40, 40);
-  width: 960px;
-  height: 540px;
+	width: 1920px;
+	height: 1080px;
 }
 * {
-  padding: 0;
-  margin: 0;
+	padding: 0;
+	margin: 0;
 }
 @font-face {
-  font-family: "Poppins Regular";
-  src: url("../static/fonts/Poppins-Regular.ttf") format("ttf");
+	font-family: 'Poppins Regular';
+	src: url('../static/fonts/Poppins-Regular.ttf') format('ttf');
 }
 @font-face {
-  font-family: "Poppins Italic";
-  src: url("../static/fonts/Poppins-Light.ttf") format("ttf");
+	font-family: 'Poppins Italic';
+	src: url('../static/fonts/Poppins-Light.ttf') format('ttf');
 }
 @font-face {
-  font-family: "Poppins Bold";
-  src: url("../static/fonts/Poppins-Bold.ttf") format("ttf");
+	font-family: 'Poppins Bold';
+	src: url('../static/fonts/Poppins-Bold.ttf') format('ttf');
 }
 @font-face {
-  font-family: "Playfair Display Regular";
-  src: url("../static/fonts/PlayfairDisplay-Regular.ttf") format("ttf");
+	font-family: 'Playfair Display Regular';
+	src: url('../static/fonts/PlayfairDisplay-Regular.ttf') format('ttf');
 }
 @font-face {
-  font-family: "Playfair Display Italic";
-  src: url("../static/fonts/PlayfairDisplay-Italic.ttf") format("ttf");
+	font-family: 'Playfair Display Italic';
+	src: url('../static/fonts/PlayfairDisplay-Italic.ttf') format('ttf');
 }
 @font-face {
-  font-family: "Playfair Display Bold";
-  src: url("../static/fonts/PlayfairDisplay-Bold.ttf") format("ttf");
+	font-family: 'Playfair Display Bold';
+	src: url('../static/fonts/PlayfairDisplay-Bold.ttf') format('ttf');
 }
 .capitalize {
-  text-transform: capitalize;
+	text-transform: capitalize;
 }
 .uppercase {
-  text-transform: uppercase;
+	text-transform: uppercase;
 }
 </style>
