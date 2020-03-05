@@ -1,34 +1,21 @@
 <template>
 	<div id="app">
-		<input type="number" id="bottle" />
-		<Infographic :bottleProp="currentBottle" />
+		<Infographic />
 	</div>
 </template>
 
 <script>
 import Infographic from './components/infographic/Infographic'
 
-import state from './assets/state'
+import { state } from './assets/state'
 
 export default {
 	name: 'App',
 	components: {
 		Infographic,
 	},
-	mounted() {
-		document.querySelector('#bottle').addEventListener('click', e => {
-			let bottle = e.target.value
-
-			if (bottle >= 0 && bottle <= 6) state.setBottle(bottle)
-			else return
-
-			console.log(state.getBottle())
-		})
-	},
-	data() {
-		return {
-			currentBottle: 0,
-		}
+	created() {
+		state.setBottle()
 	},
 }
 </script>
