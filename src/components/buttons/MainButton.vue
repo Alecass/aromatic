@@ -9,7 +9,7 @@
       <img class="secondary-button-img" :src="button" />
     </div>
     <!-- button primari -->
-    <div @click="buttonClick(id)" class="circle-button">
+    <div @click="mainButtonClick(id, secondaryButtons)" class="circle-button">
       <img class="circle-button-img" :src="image" :alt="label" />
     </div>
     <div class="label">{{ label }}</div>
@@ -26,8 +26,14 @@ export default {
     secondaryButtons: Array
   },
   methods: {
-    buttonClick(id) {
-      console.log("clicked button", id);
+    mainButtonClick(id, secondaryButtons) {
+      //se non ha bottonoi secondari al click
+      if (secondaryButtons === null) {
+        console.log("no secondary buttons on button: ", id);
+        //se ha bottoni secondari al click
+      } else {
+        console.log("has secondary button: ", id);
+      }
     }
   }
 };
@@ -66,10 +72,10 @@ export default {
   margin: 0 auto;
   border-radius: 100%;
   width: 25px;
-  height: 25px;
+  height: 0px;
   background-color: rgba(255, 255, 255, 0.13);
-  margin-bottom: 10px;
-  border: solid white 1px;
+  margin-bottom: 0px;
+  border: solid white 0px;
 }
 
 .secondary-button-img {

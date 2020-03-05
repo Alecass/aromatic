@@ -6,7 +6,7 @@
         :label="button.label"
         :image="button.image"
         :secondaryButtons="
-          button.secondaryButtons != undefined ? button.secondaryButtons : []
+          button.secondaryButtons != undefined ? button.secondaryButtons : null
         "
       />
     </div>
