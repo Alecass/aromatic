@@ -1,7 +1,7 @@
 <template>
 	<div id="infographic">
 		<!-- <Map /> -->
-		<Header id="header" :bottleProp="bottleProp" />
+		<Header id="header" />
 		<Default />
 	</div>
 </template>
@@ -13,14 +13,6 @@ import Default from './descriptions/Default'
 
 export default {
 	name: 'Infographic',
-	props: {
-		bottleProp: Number,
-	},
-	// data() {
-	// 	return {
-	// 		bottleData: this.bottleProp,
-	// 	}
-	// },
 	components: {
 		Map,
 		Header,
