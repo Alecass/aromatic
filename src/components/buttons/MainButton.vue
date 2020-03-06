@@ -33,6 +33,9 @@ import Vinificazione from "../../../static/svg/buttons/Vinificazione";
 import Location from "../../../static/svg/buttons/Location";
 import Fragolina from "../../../static/svg/buttons/Fragolina";
 
+//manager
+import { manager } from "../../assets/state";
+
 export default {
   name: "MainButton",
   components: {
@@ -107,6 +110,8 @@ export default {
     },
     //click su pulsante primario
     primaryButtonClick(e, id, secondaryButtons) {
+      manager.setButton(id);
+
       this.selectedState = id;
       this.selectedPrimaryButton = id;
       //add style
