@@ -2,9 +2,9 @@
   <div id="buttons">
     <div v-for="(button, index) in buttons" :key="index">
       <MainButton
-        :id="button.id"
+        :id="index"
         :label="button.label"
-        :image="button.image"
+        :svg="button.svg"
         :secondaryButtons="
           button.secondaryButtons != undefined ? button.secondaryButtons : null
         "
