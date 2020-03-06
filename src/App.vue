@@ -37,27 +37,27 @@ body {
 }
 @font-face {
 	font-family: 'Poppins Regular';
-	src: url('../static/fonts/Poppins-Regular.ttf') format('ttf');
+	src: local('../static/fonts/Poppins-Regular.ttf');
 }
 @font-face {
 	font-family: 'Poppins Italic';
-	src: url('../static/fonts/Poppins-Light.ttf') format('ttf');
+	src: local('../static/fonts/Poppins-Light.ttf');
 }
 @font-face {
 	font-family: 'Poppins Bold';
-	src: url('../static/fonts/Poppins-Bold.ttf') format('ttf');
+	src: local('../static/fonts/Poppins-Bold.ttf');
 }
 @font-face {
 	font-family: 'Playfair Display Regular';
-	src: url('../static/fonts/PlayfairDisplay-Regular.ttf') format('ttf');
+	src: local('../static/fonts/PlayfairDisplay-Regular.ttf');
 }
 @font-face {
 	font-family: 'Playfair Display Italic';
-	src: url('../static/fonts/PlayfairDisplay-Italic.ttf') format('ttf');
+	src: local('../static/fonts/PlayfairDisplay-Italic.ttf');
 }
 @font-face {
 	font-family: 'Playfair Display Bold';
-	src: url('../static/fonts/PlayfairDisplay-Bold.ttf') format('ttf');
+	src: local('../static/fonts/PlayfairDisplay-Bold.ttf');
 }
 .capitalize {
 	text-transform: capitalize;
