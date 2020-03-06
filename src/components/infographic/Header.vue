@@ -19,7 +19,7 @@
 <script>
 import defaultViewValues from '../../../static/data/defaultViewValues.json'
 
-import { manager } from '../../assets/state'
+import state from '../../assets/state'
 
 import gsap from 'gsap'
 
@@ -27,7 +27,7 @@ export default {
 	name: 'Header',
 	data() {
 		return {
-			bottle: 0,
+			bottle: state.watchBottle(),
 			values: defaultViewValues,
 			show: true,
 		}
@@ -39,13 +39,8 @@ export default {
 				this.show = true
 			}, 800)
 
-			let key = Number(e.key)
-
-			if (key >= 0 && key <= 6) {
-				this.bottle = manager.getBottle()
-			} else return
-
-			console.log('HEADER', manager.getBottle())
+			this.bottle = state.watchBottle()
+			console.log('HEADER', this.bottle)
 		})
 	},
 	methods: {

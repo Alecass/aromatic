@@ -71,7 +71,7 @@ import Mare from '../../../static/svg/header/Mare'
 import defaultViewValues from '../../../static/data/defaultViewValues.json'
 import Regions from '../../../static/data/regions.json'
 
-import { manager } from '../../assets/state'
+import state from '../../assets/state'
 
 import gsap from 'gsap'
 
@@ -87,7 +87,7 @@ export default {
 	data() {
 		return {
 			show: false,
-			bottle: 0,
+			bottle: state.watchBottle(),
 			sizeCircle: 113.5,
 			sizeItaliaMare: 205,
 			sizeLocation: 27.09,
@@ -103,18 +103,14 @@ export default {
 				this.show = true
 			}, 1000)
 
-			let key = Number(e.key)
-
-			if (key >= 0 && key <= 6) {
-				this.bottle = manager.getBottle()
-			} else return
+			this.bottle = state.watchBottle()
 
 			this.showRegion(
 				this.regions[this.values[this.bottle].regione].it,
 				'#808080',
 			)
 
-			console.log('MAP', manager.getBottle())
+			console.log('MAP', this.bottle)
 		})
 	},
 	methods: {

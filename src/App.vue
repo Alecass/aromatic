@@ -9,7 +9,7 @@
 import Infographic from './components/infographic/Infographic'
 import Buttons from './components/buttons/Buttons'
 
-import { state } from './assets/state'
+import state from './assets/state'
 
 export default {
 	name: 'App',
@@ -18,7 +18,7 @@ export default {
 		Buttons,
 	},
 	created() {
-		state.setBottle()
+		state.updateState()
 	},
 }
 </script>

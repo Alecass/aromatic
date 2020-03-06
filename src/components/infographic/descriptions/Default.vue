@@ -20,7 +20,7 @@
 import defaultViewValues from '../../../../static/data/defaultViewValues.json'
 import defaultViewTitles from '../../../../static/data/defaultViewTitles.json'
 
-import { manager } from '../../../assets/state'
+import state from '../../../assets/state'
 
 import gsap from 'gsap'
 
@@ -28,7 +28,7 @@ export default {
 	name: 'Default',
 	data() {
 		return {
-			bottle: 0,
+			bottle: state.watchBottle(),
 			titles: defaultViewTitles,
 			values: defaultViewValues,
 			show: true,
@@ -41,13 +41,8 @@ export default {
 				this.show = true
 			}, 1100)
 
-			let key = Number(e.key)
-
-			if (key >= 0 && key <= 6) {
-				this.bottle = manager.getBottle()
-			} else return
-
-			console.log('DEFAULT', manager.getBottle())
+			this.bottle = state.watchBottle()
+			console.log('DEFAULT', this.bottle)
 		})
 	},
 	methods: {
