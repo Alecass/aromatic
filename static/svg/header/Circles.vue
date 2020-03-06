@@ -26,7 +26,7 @@ export default {
 	fill: none;
 	stroke: #fff;
 	stroke-miterlimit: 10;
-	stroke-width: 1.69px;
+	stroke-width: 2px;
 	stroke-dasharray: 269.65 449.42;
 }
 </style>
