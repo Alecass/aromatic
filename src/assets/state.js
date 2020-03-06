@@ -1,34 +1,41 @@
-let BOTTLE = 0
+let _BOTTLE = 0
+let _BUTTON = ''
 
-export const manager = {
+const numVini = 3
+const numButton = 6
+
+const manager = {
 	setBottle: value => {
-		BOTTLE = value
+		_BOTTLE = value
 	},
 	getBottle: () => {
-		return BOTTLE
+		return _BOTTLE
+	},
+	setButton: string => {
+		_BUTTON = string
+	},
+	getButton: () => {
+		return _BUTTON
 	},
 }
 
-export const state = {
-	setBottle: () => {
+const state = {
+	updateState: () => {
 		window.addEventListener('keypress', e => {
 			let key = Number(e.key)
 
-			if (key >= 0 && key <= 6) manager.setBottle(key)
-			else return
+			if (key >= 0 && key < numVini) manager.setBottle(key)
+			else manager.setBottle(manager.getBottle())
+
+			if (isNaN(key)) manager.setButton(e.key)
 		})
 	},
-	getBottle: () => {
-		window.addEventListener('keypress', e => {
-			let key = Number(e.key)
-			let bottle = 0
-
-			if (key >= 0 && key <= 6) {
-				console.log('BOTTLE', manager.getBottle())
-				bottle = manager.getBottle()
-			}
-		})
-
-		return bottle
+	watchBottle: () => {
+		return manager.getBottle()
+	},
+	watchButton: () => {
+		return manager.getButton()
 	},
 }
+
+export default state
