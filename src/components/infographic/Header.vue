@@ -1,11 +1,18 @@
 <template>
 	<div id="header">
-		<h1 class="vino capitalize">
-			{{ values[bottle].vino }}
-		</h1>
-		<h3 class="produttore capitalize">
-			{{ values[bottle].produttore }}
-		</h3>
+		<transition-group
+			@beforeEnter="beforeEnter"
+			@enter="enter"
+			@leave="leave"
+			:css="false"
+		>
+			<h1 class="vino capitalize" v-if="show" key="vino">
+				{{ values[bottle].vino }}
+			</h1>
+			<h3 class="produttore capitalize" v-if="show" key="produttore">
+				{{ values[bottle].produttore }}
+			</h3>
+		</transition-group>
 	</div>
 </template>
 
@@ -14,16 +21,24 @@ import defaultViewValues from '../../../static/data/defaultViewValues.json'
 
 import { manager } from '../../assets/state'
 
+import gsap from 'gsap'
+
 export default {
 	name: 'Header',
 	data() {
 		return {
 			bottle: 0,
 			values: defaultViewValues,
+			show: true,
 		}
 	},
 	mounted() {
 		window.addEventListener('keypress', e => {
+			this.show = false
+			setTimeout(() => {
+				this.show = true
+			}, 800)
+
 			let key = Number(e.key)
 
 			if (key >= 0 && key <= 6) {
@@ -32,6 +47,29 @@ export default {
 
 			console.log('HEADER', manager.getBottle())
 		})
+	},
+	methods: {
+		beforeEnter(el) {
+			el.style.opacity = 0
+		},
+		enter(el, done) {
+			gsap.to(el, {
+				opacity: 1,
+				duration: 0.5,
+				ease: 'circ.inOut',
+				x: 0,
+				onComplete: () => done(),
+			})
+		},
+		leave(el, done) {
+			gsap.to(el, {
+				opacity: 0,
+				duration: 0.5,
+				ease: 'circ.inOut',
+				x: -30,
+				onComplete: () => done(),
+			})
+		},
 	},
 }
 </script>

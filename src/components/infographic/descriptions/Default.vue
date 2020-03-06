@@ -2,9 +2,16 @@
 	<div id="default">
 		<div v-for="(title, index) in titles" :key="index" :id="title">
 			<h5 class="uppercase title">{{ title }}</h5>
-			<h3 class="capitalize value">
-				{{ values[bottle][title] }}
-			</h3>
+			<transition
+				@beforeEnter="beforeEnter"
+				@enter="enter"
+				@leave="leave"
+				:css="false"
+			>
+				<h3 class="capitalize value" v-if="show">
+					{{ values[bottle][title] }}
+				</h3>
+			</transition>
 		</div>
 	</div>
 </template>
@@ -15,6 +22,8 @@ import defaultViewTitles from '../../../../static/data/defaultViewTitles.json'
 
 import { manager } from '../../../assets/state'
 
+import gsap from 'gsap'
+
 export default {
 	name: 'Default',
 	data() {
@@ -22,10 +31,16 @@ export default {
 			bottle: 0,
 			titles: defaultViewTitles,
 			values: defaultViewValues,
+			show: true,
 		}
 	},
 	mounted() {
 		window.addEventListener('keypress', e => {
+			this.show = false
+			setTimeout(() => {
+				this.show = true
+			}, 1100)
+
 			let key = Number(e.key)
 
 			if (key >= 0 && key <= 6) {
@@ -34,6 +49,29 @@ export default {
 
 			console.log('DEFAULT', manager.getBottle())
 		})
+	},
+	methods: {
+		beforeEnter(el) {
+			el.style.opacity = 0
+		},
+		enter(el, done) {
+			gsap.to(el, {
+				opacity: 1,
+				duration: 0.5,
+				ease: 'circ.inOut',
+				y: 0,
+				onComplete: () => done(),
+			})
+		},
+		leave(el, done) {
+			gsap.to(el, {
+				opacity: 0,
+				duration: 0.5,
+				ease: 'circ.inOut',
+				y: 30,
+				onComplete: () => done(),
+			})
+		},
 	},
 }
 </script>
