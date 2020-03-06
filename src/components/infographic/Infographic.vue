@@ -2,7 +2,8 @@
 	<div id="infographic">
 		<Map />
 		<Header id="header" />
-		<Default id="default" />
+		<Default id="default" v-if="show" />
+		<Widget id="widget" v-else />
 	</div>
 </template>
 
@@ -10,6 +11,7 @@
 import Map from './Map'
 import Header from './Header'
 import Default from './descriptions/Default'
+import Widget from './descriptions/Widget'
 
 export default {
 	name: 'Infographic',
@@ -17,7 +19,25 @@ export default {
 		Map,
 		Header,
 		Default,
+		Widget,
 	},
+	data() {
+		return {
+			show: true,
+		}
+	},
+	mounted() {
+		window.addEventListener('keypress', e => {
+			if (!isNaN(e.key)) {
+				//MOSTRO HEADER
+				this.show = true
+			} else {
+				//MOSTRO WIDGET
+				this.show = false
+			}
+		})
+	},
+	methods: {},
 }
 </script>
 
@@ -31,7 +51,8 @@ export default {
 	background-color: rgb(10, 15, 25);
 }
 #header,
-#default {
+#default,
+#widget {
 	margin-left: 260px;
 	margin-right: 0px;
 	width: 550px;
@@ -41,6 +62,10 @@ export default {
 	margin-top: 160px;
 }
 #default {
+	position: absolute;
+	margin-top: 245px;
+}
+#widget {
 	position: absolute;
 	margin-top: 245px;
 }
