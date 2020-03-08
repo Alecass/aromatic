@@ -28,16 +28,20 @@ export default {
 	},
 	mounted() {
 		window.addEventListener('keypress', e => {
-			if (!isNaN(e.key)) {
-				//MOSTRO HEADER
-				this.show = true
-			} else {
-				//MOSTRO WIDGET
-				this.show = false
-			}
+			this.checkIfNaN(e.key)
 		})
 	},
-	methods: {},
+	methods: {
+		checkIfNaN: function(value) {
+			if (!isNaN(value)) {
+				// mostro header
+				this.show = true
+			} else {
+				// mostro widget
+				this.show = false
+			}
+		},
+	},
 }
 </script>
 
