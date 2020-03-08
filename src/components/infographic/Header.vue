@@ -19,7 +19,8 @@
 <script>
 import defaultViewValues from '../../../static/data/defaultViewValues.json'
 
-import state from '../../assets/state'
+// import state from '../../assets/state'
+import { state } from '../../assets/state.new'
 
 import gsap from 'gsap'
 
@@ -27,23 +28,18 @@ export default {
 	name: 'Header',
 	data() {
 		return {
-			bottle: state.watchBottle(),
+			// bottle: state.bottle,
 			values: defaultViewValues,
 			show: true,
 		}
 	},
-	mounted() {
-		window.addEventListener('keypress', e => {
-			this.show = false
-			setTimeout(() => {
-				this.show = true
-			}, 800)
-
-			this.bottle = state.watchBottle()
-			console.log('HEADER', this.bottle)
-		})
+	computed: {
+		bottle() {
+			return state.bottle
+		},
 	},
 	methods: {
+		// start animazioni
 		beforeEnter(el) {
 			el.style.opacity = 0
 		},
@@ -65,6 +61,7 @@ export default {
 				onComplete: () => done(),
 			})
 		},
+		// end animazioni
 	},
 }
 </script>

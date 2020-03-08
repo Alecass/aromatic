@@ -9,7 +9,8 @@
 import Infographic from './components/infographic/Infographic'
 import Buttons from './components/buttons/Buttons'
 
-import state from './assets/state'
+// import state from './assets/state'
+import { state, setBottle } from './assets/state.new'
 
 export default {
 	name: 'App',
@@ -17,8 +18,13 @@ export default {
 		Infographic,
 		Buttons,
 	},
+	computed: {
+		setBottle() {
+			return setBottle
+		},
+	},
 	created() {
-		state.updateState()
+		this.setBottle()
 	},
 }
 </script>
