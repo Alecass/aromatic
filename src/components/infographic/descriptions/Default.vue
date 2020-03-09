@@ -2,69 +2,48 @@
 	<div id="default">
 		<div v-for="(title, index) in titles" :key="index" :id="title">
 			<h5 class="uppercase title">{{ title }}</h5>
-			<transition
-				@beforeEnter="beforeEnter"
-				@enter="enter"
-				@leave="leave"
-				:css="false"
-			>
-				<h3 class="capitalize value" v-if="show">
-					{{ values[bottle][title] }}
-				</h3>
-			</transition>
+
+			<h3 class="capitalize value" ref="title">
+				{{ wines[bottle][title] }}
+			</h3>
 		</div>
 	</div>
 </template>
 
 <script>
-import defaultViewValues from '../../../../static/data/defaultViewValues.json'
 import defaultViewTitles from '../../../../static/data/defaultViewTitles.json'
-
-import state from '../../../assets/state'
-
+import wines from '../../../../static/data/wines.json'
+import { state } from '../../../assets/state.new'
 import gsap from 'gsap'
 
 export default {
 	name: 'Default',
 	data() {
 		return {
-			bottle: state.watchBottle(),
 			titles: defaultViewTitles,
-			values: defaultViewValues,
-			show: true,
+			wines: wines,
 		}
 	},
-	mounted() {
-		window.addEventListener('keypress', e => {
-			this.show = false
-			setTimeout(() => {
-				this.show = true
-			}, 1100)
+	computed: {
+		bottle() {
+			return state.bottle
+		},
+	},
+	watch: {
+		bottle: function() {
+			console.log('Default.vue/watching...')
 
-			this.bottle = state.watchBottle()
-			console.log('DEFAULT', this.bottle)
-		})
+			this.animate()
+		},
 	},
 	methods: {
-		beforeEnter(el) {
-			el.style.opacity = 0
-		},
-		enter(el, done) {
-			gsap.to(el, {
-				opacity: 1,
-				duration: 0.5,
-				ease: 'circ.inOut',
-				y: 0,
-				onComplete: () => done(),
-			})
-		},
-		leave(el, done) {
-			gsap.to(el, {
+		animate: function() {
+			gsap.from(this.$refs.title, {
+				delay: 0.5,
 				opacity: 0,
 				duration: 0.5,
 				ease: 'circ.inOut',
 				y: 30,
-				onComplete: () => done(),
 			})
 		},
 	},
