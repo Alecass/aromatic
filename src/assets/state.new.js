@@ -1,18 +1,20 @@
 import Vue from 'vue'
+import wines from '../../static/data/wines.json'
 
 export const state = Vue.observable({
 	bottle: 0,
-	button: 0,
+	button: null,
 })
 
 export const setBottle = () => {
 	window.addEventListener('keypress', e => {
 		let key = Number(e.key)
 
-		state.bottle = key
-
-		// if (key >= 0 && key < 6) state.bottle = key
-		// else state.bottle = state.bottle
+		if (key >= 0 && key < wines.length && !isNaN(key)) state.bottle = key
+		else return
 	})
-	// if (isNaN(key)) manager.setButton(e.key)
+}
+
+export const setButton = id => {
+	state.button = id
 }
