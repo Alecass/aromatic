@@ -8,8 +8,6 @@
 <script>
 import Infographic from './components/infographic/Infographic'
 import Buttons from './components/buttons/Buttons'
-
-// import state from './assets/state'
 import { state, setBottle } from './assets/state.new'
 
 export default {
@@ -23,7 +21,10 @@ export default {
 			return setBottle
 		},
 	},
-	created() {
+	mounted() {
+		console.log('App.vue/set listener')
+
+		// avvio il listenr che ascolta la bottiglia corrente (numero della tastiera)
 		this.setBottle()
 	},
 }
