@@ -2,16 +2,17 @@
 	<div id="infographic">
 		<Map />
 		<Header id="header" />
-		<Default id="default" v-if="show" />
+		<Default id="default" v-if="!show" />
 		<Widget id="widget" v-else />
 	</div>
 </template>
 
 <script>
-import Map from './Map'
-import Header from './Header'
 import Default from './descriptions/Default'
 import Widget from './descriptions/Widget'
+import Header from './Header'
+import Map from './Map'
+import { state } from '../../assets/state.new'
 
 export default {
 	name: 'Infographic',
@@ -23,23 +24,18 @@ export default {
 	},
 	data() {
 		return {
-			show: true,
+			show: false,
 		}
 	},
-	mounted() {
-		window.addEventListener('keypress', e => {
-			this.checkIfNaN(e.key)
-		})
+	computed: {
+		button() {
+			return state.button
+		},
 	},
-	methods: {
-		checkIfNaN: function(value) {
-			if (!isNaN(value)) {
-				// mostro header
-				this.show = true
-			} else {
-				// mostro widget
-				this.show = false
-			}
+	watch: {
+		button: function() {
+			this.show = true
+			console.log(this.button)
 		},
 	},
 }
