@@ -1,31 +1,25 @@
 <template>
   <div id="widget">
-    <h1>Vino: {{ bottle }} - Bottone: {{ button }}</h1>
+    <h1>Bottle: {{ bottle }} - Button: {{ button }}</h1>
   </div>
 </template>
 
 <script>
-import state from "../../../assets/state";
+import { state } from "../../../assets/state.new";
 
 export default {
   name: "Widget",
-  data() {
-    return {
-      bottle: state.watchBottle(),
-      button: state.watchButton(),
-      buttons: []
-    };
+  computed: {
+    bottle() {
+      return state.bottle;
+    },
+    button() {
+      return state.button;
+    }
   },
-  mounted() {
-    this.buttons = document.querySelectorAll(".primary-button");
-    this.buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        this.button = state.watchButton();
-      });
-    });
-    window.addEventListener("keypress", e => {
-      this.bottle = state.watchBottle();
-    });
+  watch: {
+    bottle: function() {},
+    button: function() {}
   }
 };
 </script>

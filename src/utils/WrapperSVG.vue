@@ -5,8 +5,6 @@
 		:height="height"
 		:id="id"
 	>
-		<title>{{ title }} icon</title>
-
 		<slot />
 	</svg>
 </template>
@@ -16,7 +14,6 @@ export default {
 	name: 'Circles',
 	props: {
 		id: String,
-		title: String,
 		width: String,
 		height: String,
 	},

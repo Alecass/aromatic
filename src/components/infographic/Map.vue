@@ -1,78 +1,68 @@
 <template>
 	<div id="map">
+		<!-- wrapper + mare -->
 		<WrapperSVG
 			id="mare"
 			class="position"
-			title="mare"
 			:width="String(sizeItaliaMare)"
 			:height="String(sizeItaliaMare)"
 			><Mare
 		/></WrapperSVG>
+
+		<!-- wrapper + italia -->
 		<WrapperSVG
 			id="italia"
 			class="position"
-			title="italia"
 			:width="String(sizeItaliaMare)"
 			:height="String(sizeItaliaMare)"
 			><Italia
 		/></WrapperSVG>
+
+		<!-- wrapper + circles -->
 		<WrapperSVG
 			id="circles"
 			class="position"
-			title="circles"
 			:width="String(sizeCircle)"
 			:height="String(sizeCircle)"
 			><Circles
 		/></WrapperSVG>
-		<transition-group
-			@beforeEnter="beforeEnter"
-			@enter="enter"
-			@leave="leave"
-			:css="false"
+
+		<!-- wrapper + location (marker) -->
+		<WrapperSVG
+			id="location"
+			class="position"
+			:width="String(sizeLocation)"
+			:height="String(sizeLocation)"
+			><Location
+		/></WrapperSVG>
+
+		<!-- wrapper + name (nome regione) -->
+		<WrapperSVG
+			id="name"
+			class="position"
+			:width="String(sizeItaliaMare)"
+			:height="String(sizeItaliaMare)"
 		>
-			<WrapperSVG
-				key="location"
-				id="location"
-				class="position"
-				title="location"
-				:width="String(sizeLocation)"
-				:height="String(sizeLocation)"
-				v-if="show"
-				><Location
-			/></WrapperSVG>
-			<WrapperSVG
-				key="name"
-				id="name"
-				v-if="show"
-				class="position"
-				title="name"
-				:width="String(sizeItaliaMare)"
-				:height="String(sizeItaliaMare)"
-			>
-				<path id="curve" d="M 90 150 Q 90 90 150 90" />
-				<text id="text">
-					<textPath xlink:href="#curve">
-						{{ regionNameCap }}
-					</textPath>
-				</text>
-			</WrapperSVG>
-		</transition-group>
+			<!-- path che il nome della regione segue per curvarsi -->
+			<path id="curve" d="M 90 150 Q 90 90 150 90" />
+			<text id="text">
+				<textPath xlink:href="#curve">
+					{{ regionNameCap }}
+				</textPath>
+			</text>
+		</WrapperSVG>
 	</div>
 </template>
 
 <script>
-import WrapperSVG from '../../utils/WrapperSVG'
-
 import Location from '../../../static/svg/header/Location'
 import Circles from '../../../static/svg/header/Circles'
+import regions from '../../../static/data/regions.json'
 import Italia from '../../../static/svg/header/Italia'
+import wines from '../../../static/data/wines.json'
 import Mare from '../../../static/svg/header/Mare'
-
-import defaultViewValues from '../../../static/data/defaultViewValues.json'
-import Regions from '../../../static/data/regions.json'
-
-import state from '../../assets/state'
-
+import WrapperSVG from '../../utils/WrapperSVG'
+import { state } from '../../assets/state.new'
 import gsap from 'gsap'
 
 export default {
@@ -86,89 +76,103 @@ export default {
 	},
 	data() {
 		return {
-			show: false,
-			bottle: state.watchBottle(),
+			// dimensioni degli svg
 			sizeCircle: 113.5,
 			sizeItaliaMare: 205,
 			sizeLocation: 27.09,
-			regions: Regions,
-			values: defaultViewValues,
+			//
+			regions: regions,
+			wines: wines,
+			// nome capitalizzato della regione
 			regionNameCap: '',
 		}
 	},
-	mounted() {
-		window.addEventListener('keypress', e => {
-			this.show = false
-			setTimeout(() => {
-				this.show = true
-			}, 1000)
+	computed: {
+		bottle() {
+			return state.bottle
+		},
+	},
+	watch: {
+		bottle: function() {
+			console.log('Map.vue/watching...')
 
-			this.bottle = state.watchBottle()
+			// prendo il vino corrente
+			const vino = this.wines[this.bottle]
+			// prendo la fregione del vino corrente
+			const regioneVino = vino.regione
+			// prendo il rettaglio della regione del vino corrente
+			const dettaglioRegione = this.regions[regioneVino]
+			// prendo il nome della regione in italiano del vino corrente
+			const region = dettaglioRegione.it
 
-			this.showRegion(
-				this.regions[this.values[this.bottle].regione].it,
-				'#808080',
-			)
-
-			console.log('MAP', this.bottle)
-		})
+			this.animateToRegion(region)
+		},
 	},
 	methods: {
-		showRegion(regionName, color) {
+		// funxione per capitalizzare òla prima lettera di una stringa
+		capitalize(string) {
+			return (
+				// cast in stringa per sicurezza
+				String(string)
+					.charAt(0)
+					.toUpperCase() + string.slice(1)
+			)
+		},
+		animateToRegion(regionName) {
+			// prendo la verione in inglese della regione
 			const regionNameEN = this.regions[regionName].en
+			// capitalizzo la prima lettera
+			const regionNameENCap = this.capitalize(regionNameEN)
 
-			const regionNameENCap =
-				String(regionNameEN)
-					.charAt(0)
-					.toUpperCase() + regionNameEN.slice(1)
-
-			this.regionNameCap =
-				String(regionName)
-					.charAt(0)
-					.toUpperCase() + String(regionName).slice(1)
-
-			let italia = document.querySelector('#italia g')
-			let circles = document.querySelector('#circles')
-
-			gsap.to(italia, {
+			// muovo la mappa veros la regione
+			gsap.to('#italia g', {
+				// uso le informazioni della regione da regions.json
 				x: this.regions[regionName].coords[0],
 				y: this.regions[regionName].coords[1],
 				scale: this.regions[regionName].scale,
+				//
 				duration: 1,
 				ease: 'circ.inOut',
 			})
-			gsap.to(circles, {
-				rotation: `${Math.floor(Math.random() * 360)}deg`,
+
+			// ruoto il cerchio in una posizione casuale
+			gsap.to('#circles', {
+				rotate: `${Math.floor(Math.random() * 90 - 45) + 45}deg`,
 				transformOrigin: 'right bottom',
 				duration: 1,
 				ease: 'circ.inOut',
 			})
 
-			let region = document.querySelector(`#${regionNameENCap}`)
-			region.style = `fill: ${color}`
-
-			console.log('MAP/REGION', regionName)
-		},
-		beforeEnter(el) {
-			el.style.opacity = 1
-		},
-		enter(el, done) {
-			gsap.to(el, {
+			// animo il marker
+			gsap.to('#location', {
+				opacity: 0,
+				duration: 1,
+				ease: 'circ.inOut',
+				scale: 1.5,
+			})
+			gsap.to('#location', {
+				delay: 1,
 				opacity: 1,
 				duration: 0.5,
 				ease: 'elastic.out(1.5, 0.5)',
 				scale: 0.8,
-				onComplete: () => done(),
 			})
-		},
-		leave(el, done) {
-			gsap.to(el, {
+
+			// animo il nome
+			gsap.from('#name', {
+				delay: 1,
 				opacity: 0,
-				duration: 0.5,
-				ease: 'circ.inOut',
+				duration: 1,
+				ease: 'elastic.out(1.5, 0.5)',
 				scale: 1.5,
-				onComplete: () => done(),
 			})
+
+			// mostro il nome della regione
+			this.regionNameCap = this.capitalize(regionName)
+
+			// prendo e coloro la regione
+			const region = document.querySelector(`#${regionNameENCap}`)
+			region.style = 'fill: #808080'
 		},
 	},
 }

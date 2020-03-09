@@ -1,68 +1,49 @@
 <template>
-	<div id="header">
-		<transition-group
-			@beforeEnter="beforeEnter"
-			@enter="enter"
-			@leave="leave"
-			:css="false"
-		>
-			<h1 class="vino capitalize" v-if="show" key="vino">
-				{{ values[bottle].vino }}
-			</h1>
-			<h3 class="produttore capitalize" v-if="show" key="produttore">
-				{{ values[bottle].produttore }}
-			</h3>
-		</transition-group>
+	<div id="header" ref="header">
+		<h1 id="vino" class="capitalize" key="vino">
+			{{ wines[bottle].vino }}
+		</h1>
+		<h3 id="produttore" class="capitalize" key="produttore">
+			{{ wines[bottle].produttore }}
+		</h3>
 	</div>
 </template>
 
 <script>
-import defaultViewValues from '../../../static/data/defaultViewValues.json'
-
-import state from '../../assets/state'
-
+import wines from '../../../static/data/wines.json'
+import { state } from '../../assets/state.new'
 import gsap from 'gsap'
 
 export default {
 	name: 'Header',
 	data() {
 		return {
-			bottle: state.watchBottle(),
-			values: defaultViewValues,
-			show: true,
+			wines: wines,
+			tl: gsap.timeline(),
 		}
 	},
-	mounted() {
-		window.addEventListener('keypress', e => {
-			this.show = false
-			setTimeout(() => {
-				this.show = true
-			}, 800)
+	computed: {
+		bottle() {
+			return state.bottle
+		},
+	},
+	watch: {
+		// ascolto per cambiamenti della variabile bottle (computed)
+		bottle: function() {
+			console.log('Header.vue/watching...')
 
-			this.bottle = state.watchBottle()
-			console.log('HEADER', this.bottle)
-		})
+			this.animate()
+		},
 	},
 	methods: {
-		beforeEnter(el) {
-			el.style.opacity = 0
-		},
-		enter(el, done) {
-			gsap.to(el, {
-				opacity: 1,
-				duration: 0.5,
-				ease: 'circ.inOut',
-				x: 0,
-				onComplete: () => done(),
-			})
-		},
-		leave(el, done) {
-			gsap.to(el, {
+		animate: function() {
+			console.log('Header.vue/start animation')
+
+			this.tl.from(this.$refs.header, {
 				opacity: 0,
-				duration: 0.5,
-				ease: 'circ.inOut',
 				x: -30,
-				onComplete: () => done(),
+				duration: 1,
+				ease: 'circ.inOut',
 			})
 		},
 	},
@@ -70,13 +51,13 @@ export default {
 </script>
 
 <style scoped>
-.vino {
+#vino {
 	font-family: 'Playfair Display Italic';
 	color: #b14d74;
 	font-size: 3rem;
 	line-height: 2.5rem;
 }
-.produttore {
+#produttore {
 	font-family: 'Playfair Display Bold';
 	font-weight: 100;
 	font-style: italic;
